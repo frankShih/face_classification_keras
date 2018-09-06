@@ -1,0 +1,37 @@
+Layer (type)                 Output Shape              Param #
+=================================================================
+conv2d_13 (Conv2D)           (None, 48, 48, 8)         208
+batch_normalization_7 (Batch (None, 48, 48, 8)         32
+activation_7 (Activation)    (None, 48, 48, 8)         0
+conv2d_14 (Conv2D)           (None, 48, 48, 8)         1608
+batch_normalization_8 (Batch (None, 48, 48, 8)         32
+activation_8 (Activation)    (None, 48, 48, 8)         0
+max_pooling2d_7 (MaxPooling2 (None, 24, 24, 8)         0
+dropout_7 (Dropout)          (None, 24, 24, 8)         0
+conv2d_15 (Conv2D)           (None, 24, 24, 16)        3216
+batch_normalization_9 (Batch (None, 24, 24, 16)        64
+activation_9 (Activation)    (None, 24, 24, 16)        0
+conv2d_16 (Conv2D)           (None, 24, 24, 16)        6416
+batch_normalization_10 (Batc (None, 24, 24, 16)        64
+activation_10 (Activation)   (None, 24, 24, 16)        0
+max_pooling2d_8 (MaxPooling2 (None, 12, 12, 16)        0
+dropout_8 (Dropout)          (None, 12, 12, 16)        0
+conv2d_17 (Conv2D)           (None, 12, 12, 32)        12832
+batch_normalization_11 (Batc (None, 12, 12, 32)        128
+activation_11 (Activation)   (None, 12, 12, 32)        0
+conv2d_18 (Conv2D)           (None, 12, 12, 32)        25632
+batch_normalization_12 (Batc (None, 12, 12, 32)        128
+activation_12 (Activation)   (None, 12, 12, 32)        0
+max_pooling2d_9 (MaxPooling2 (None, 6, 6, 32)          0
+dropout_9 (Dropout)          (None, 6, 6, 32)          0
+flatten_3 (Flatten)          (None, 1152)              0
+dense_5 (Dense)              (None, 128)               147584
+dropout_10 (Dropout)         (None, 128)               0
+dense_6 (Dense)              (None, 7)                 903
+=================================================================
+Total params: 198,847
+Trainable params: 198,623
+Non-trainable params: 224
+
+filter_size=5*5
+loss: 1.1506 - acc: 0.5614 - val_loss: 1.1772 - val_acc: 0.5536 (with class weight)
