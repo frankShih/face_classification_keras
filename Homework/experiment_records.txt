@@ -35,12 +35,15 @@ Non-trainable params: 224
 
 filter_size=5*5
 loss: 1.1506 - acc: 0.5614 - val_loss: 1.1772 - val_acc: 0.5536 (with class weight)
-30 epoch
+50 epoch
 loss: 1.2115 - acc: 0.5363 - val_loss: 1.2443 - val_acc: 0.5336
+loss: 1.0603 - acc: 0.6028 - val_loss: 1.1964 - val_acc: 0.5602
 with weight initialization
 kernel_initializer='he_uniform', bias_initializer='zeros',
 kernel_regularizer=regularizers.l2(0.01), bias_regularizer=None
 loss: 1.6022 - acc: 0.3982 - val_loss: 1.5388 - val_acc: 0.4373
 
-
-
+filter_size=3*3
+100 epoch
+loss: 1.0954 - acc: 0.5857 - val_loss: 1.1029 - val_acc: 0.5832
+loss: 1.0374 - acc: 0.6023 - val_loss: 1.1102 - val_acc: 0.5911
