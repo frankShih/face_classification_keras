@@ -32,6 +32,7 @@ dense_6 (Dense)              (None, 7)                 903
 Total params: 198,847
 Trainable params: 198,623
 Non-trainable params: 224
+_____________________________________________________________
 
 filter_size=5*5
 loss: 1.1506 - acc: 0.5614 - val_loss: 1.1772 - val_acc: 0.5536 (with class weight)
@@ -47,3 +48,50 @@ filter_size=3*3
 100 epoch
 loss: 1.0954 - acc: 0.5857 - val_loss: 1.1029 - val_acc: 0.5832
 loss: 1.0374 - acc: 0.6023 - val_loss: 1.1102 - val_acc: 0.5911
+
+
+move batch_normalization after activation layer
+=================================================================
+conv2d_1 (Conv2D)            (None, 48, 48, 8)         80
+activation_1 (Activation)    (None, 48, 48, 8)         0
+batch_normalization_1 (Batch (None, 48, 48, 8)         32
+conv2d_2 (Conv2D)            (None, 48, 48, 8)         584
+activation_2 (Activation)    (None, 48, 48, 8)         0
+batch_normalization_2 (Batch (None, 48, 48, 8)         32
+max_pooling2d_1 (MaxPooling2 (None, 24, 24, 8)         0
+dropout_1 (Dropout)          (None, 24, 24, 8)         0
+conv2d_3 (Conv2D)            (None, 24, 24, 16)        1168
+activation_3 (Activation)    (None, 24, 24, 16)        0
+batch_normalization_3 (Batch (None, 24, 24, 16)        64
+conv2d_4 (Conv2D)            (None, 24, 24, 16)        2320
+activation_4 (Activation)    (None, 24, 24, 16)        0
+batch_normalization_4 (Batch (None, 24, 24, 16)        64
+max_pooling2d_2 (MaxPooling2 (None, 12, 12, 16)        0
+dropout_2 (Dropout)          (None, 12, 12, 16)        0
+conv2d_5 (Conv2D)            (None, 12, 12, 32)        4640
+activation_5 (Activation)    (None, 12, 12, 32)        0
+batch_normalization_5 (Batch (None, 12, 12, 32)        128
+conv2d_6 (Conv2D)            (None, 12, 12, 32)        9248
+activation_6 (Activation)    (None, 12, 12, 32)        0
+batch_normalization_6 (Batch (None, 12, 12, 32)        128
+max_pooling2d_3 (MaxPooling2 (None, 6, 6, 32)          0
+dropout_3 (Dropout)          (None, 6, 6, 32)          0
+flatten_1 (Flatten)          (None, 1152)              0
+dense_1 (Dense)              (None, 128)               147584
+dropout_4 (Dropout)          (None, 128)               0
+dense_2 (Dense)              (None, 7)                 903
+=================================================================
+Total params: 166,975
+Trainable params: 166,751
+Non-trainable params: 224
+_____________________________________________________________
+
+* filter_size=3*3
+    50 epoch
+        all data, loss: 1.0970 - acc: 0.5836 - val_loss: 1.1443 - val_acc: 0.5786 (nothing changed)
+        split5,
+    he_normal + ReLU
+        converge a littel bit faster, no improvement
+    dataAug: origin + rotation
+        split5, loss: 0.9256 - acc: 0.6464 - val_loss: 0.9674 - val_acc: 0.6510
+        on split5, Loss: 1, Accuracy: 61.25%
