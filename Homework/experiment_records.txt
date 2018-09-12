@@ -87,11 +87,63 @@ Non-trainable params: 224
 _____________________________________________________________
 
 * filter_size=3*3
-    50 epoch
-        all data, loss: 1.0970 - acc: 0.5836 - val_loss: 1.1443 - val_acc: 0.5786 (nothing changed)
-        split5,
-    he_normal + ReLU
-        converge a littel bit faster, no improvement
-    dataAug: origin + rotation
+    [naive, 50 epoch]
+        all data,   loss: 1.0970 - acc: 0.5836 - val_loss: 1.1443 - val_acc: 0.5786 (nothing changed)
+        split5,     loss: 1.1498 - acc: 0.5640 - val_loss: 1.2244 - val_acc: 0.5437
+                    Loss: 1.25, Accuracy: 54.20%
+        split4,     loss: 1.1911 - acc: 0.5482 - val_loss: 1.2244 - val_acc: 0.5327
+                    Loss: 1.22, Accuracy: 54.30%
+        split3,     loss:
+                    Loss:
+        split2,     loss:
+                    Loss:
+        split1,     loss:
+                    Loss:
+    [he_normal + ReLU]
+        converge a littel bit faster, no improvement (maybe has more chances to get lower cost)
+    [dataAug: origin + rotation]
         split5, loss: 0.9256 - acc: 0.6464 - val_loss: 0.9674 - val_acc: 0.6510
-        on split5, Loss: 1, Accuracy: 61.25%
+                Loss: 1, Accuracy: 61.25%
+        split4,     loss:
+                    Loss:
+        split3,     loss:
+                    Loss:
+        split2,     loss:
+                    Loss:
+        split1,     loss:
+                    Loss:
+
+    [dataAug: origin + shear]
+        split5, loss: 0.9531 - acc: 0.6386 - val_loss: 0.9076 - val_acc: 0.6649
+                Loss: 1.18, Accuracy: 56.57%
+        split4,     loss:
+                    Loss:
+        split3,     loss:
+                    Loss:
+        split2,     loss:
+                    Loss:
+        split1,     loss:
+                    Loss:
+    [dataAug: origin + zoom]
+        split5, loss: 1.0291 - acc: 0.6100 - val_loss: 1.0587 - val_acc: 0.6000
+                Loss: 1.17, Accuracy: 55.91%
+        split4,     loss:
+                    Loss:
+        split3,     loss:
+                    Loss:
+        split2,     loss:
+                    Loss:
+        split1,     loss:
+                    Loss:
+    [dataAug: origin + horizontal flip]
+        split5, loss: 0.9531 - acc: 0.6386 - val_loss: 0.9076 - val_acc: 0.6649
+                Loss: 1.18, Accuracy:
+        split4,     loss:
+                    Loss:
+        split3,     loss:
+                    Loss:
+        split2,     loss:
+                    Loss:
+        split1,     loss:
+                    Loss:
+

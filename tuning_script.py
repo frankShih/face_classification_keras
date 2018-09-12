@@ -2,11 +2,11 @@ import numpy as np
 from keras.utils import np_utils
 
 # ---------------------------loading data-----------------------------
-trainX = np.load("trainX.npy")
+trainX = np.load("trainX_split1.npy")
 trainX = trainX/255
 trainX = trainX.reshape(trainX.shape[0], 48, 48, 1).astype('float32')
 
-trainY = np.load("trainY.npy")
+trainY = np.load("trainY_split1.npy")
 trainY_oneHot = np_utils.to_categorical(trainY)
 
 def get_class_weights(y):
@@ -17,16 +17,8 @@ def get_class_weights(y):
 
 class_weights=get_class_weights(trainY)
 
-
-# ------------------------shuffling data------------------------------
-def unison_shuffled_copies(a, b):
-    assert len(a) == len(b)
-    p = np.random.permutation(len(a))
-    return a[p], b[p]
-
-
-trainX, trainY = unison_shuffled_copies(trainX, trainY)
-trainY_oneHot = np_utils.to_categorical(trainY)
+trainX_aug=np.load("datasets/trainX_split_zoom5.npy")
+trainX_aug = trainX_aug.reshape(trainX_aug.shape[0], 48, 48, 1).astype('float32')
 
 
 # ------------------------model construction--------------------------
@@ -102,7 +94,10 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 # tempX = np.vstack((trainX, trainX_aug))
 # tempY_oneHot = np.vstack((trainY_oneHot, trainY_oneHot_aug))
 # print(tempX.shape, tempY.shape)
-train_history = model.fit(x=trainX, y=trainY_oneHot, validation_split=0.2, class_weight=class_weights,
+tempX = np.vstack((trainX, trainX_aug))
+tempY_oneHot = np.vstack((trainY_oneHot, trainY_oneHot))
+# print(tempX.shape, tempY_oneHot.shape)
+train_history = model.fit(x=tempX, y=tempY_oneHot, validation_split=0.2, class_weight=class_weights,
                           epochs=50, batch_size=100, verbose=2)
 
 
