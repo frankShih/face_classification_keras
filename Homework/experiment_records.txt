@@ -104,40 +104,40 @@ _____________________________________________________________
     [dataAug: origin + rotation]
         split5, loss: 0.9256 - acc: 0.6464 - val_loss: 0.9674 - val_acc: 0.6510
                 Loss: 1, Accuracy: 61.25%
-        split4,     loss:
-                    Loss:
-        split3,     loss:
-                    Loss:
-        split2,     loss:
-                    Loss:
-        split1,     loss:
-                    Loss:
+        split4, loss: 0.9600 - acc: 0.6385 - val_loss: 1.0349 - val_acc: 0.6239
+                Loss:
+        split3, loss: 0.9607 - acc: 0.6407 - val_loss: 0.9837 - val_acc: 0.6314
+                Loss:
+        split2, loss: 1.0838 - acc: 0.5931 - val_loss: 1.0983 - val_acc: 0.5866
+                Loss:
+        split1, loss: 1.0452 - acc: 0.6049 - val_loss: 1.0505 - val_acc: 0.6014
+                Loss:
 
     [dataAug: origin + shear]
-        split5, loss: 0.9531 - acc: 0.6386 - val_loss: 0.9076 - val_acc: 0.6649
-                Loss: 1.18, Accuracy: 56.57%
-        split4,     loss:
+        split5,     loss: 0.9531 - acc: 0.6386 - val_loss: 0.9076 - val_acc: 0.6649
+                    Loss: 1.18, Accuracy: 56.57%
+        split4,     loss: 0.8913 - acc: 0.6644 - val_loss: 0.9283 - val_acc: 0.6507
                     Loss:
-        split3,     loss:
+        split3,     loss: 0.8679 - acc: 0.6739 - val_loss: 0.8799 - val_acc: 0.6709
                     Loss:
-        split2,     loss:
+        split2,     loss: 0.8721 - acc: 0.6733 - val_loss: 0.9081 - val_acc: 0.6558
                     Loss:
-        split1,     loss:
+        split1,     loss: 0.8296 - acc: 0.6873 - val_loss: 0.8678 - val_acc: 0.6756
                     Loss:
     [dataAug: origin + zoom]
-        split5, loss: 1.0291 - acc: 0.6100 - val_loss: 1.0587 - val_acc: 0.6000
-                Loss: 1.17, Accuracy: 55.91%
-        split4,     loss:
+        split5,     loss: 1.0291 - acc: 0.6100 - val_loss: 1.0587 - val_acc: 0.6000
+                    Loss: 1.17, Accuracy: 55.91%
+        split4,     loss: 1.0892 - acc: 0.5874 - val_loss: 1.1197 - val_acc: 0.5737
                     Loss:
-        split3,     loss:
+        split3,     loss: 0.9872 - acc: 0.6265 - val_loss: 1.0564 - val_acc: 0.6017
                     Loss:
-        split2,     loss:
+        split2,     loss: 1.0917 - acc: 0.5880 - val_loss: 1.1310 - val_acc: 0.5638
                     Loss:
-        split1,     loss:
+        split1,     loss: 1.0286 - acc: 0.6091 - val_loss: 1.0666 - val_acc: 0.5916
                     Loss:
     [dataAug: origin + horizontal flip]
-        split5, loss: 0.9531 - acc: 0.6386 - val_loss: 0.9076 - val_acc: 0.6649
-                Loss: 1.18, Accuracy:
+        split5,     loss: 1.0189 - acc: 0.6130 - val_loss: 1.0612 - val_acc: 0.6074
+                    Loss: 1.16, Accuracy: 57.48%
         split4,     loss:
                     Loss:
         split3,     loss:
