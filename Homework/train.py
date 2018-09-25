@@ -19,16 +19,16 @@ print(trainY.shape)
 trainY_oneHot = np_utils.to_categorical(trainY)
 print(trainY_oneHot.shape)
 
-for line in open('./Homework/test.csv'):
-    line = line.split(',')
-    if not(line[0].isdigit()):
-        continue
-    label.append(line[0])   # id, in test set
-    raw_image.append(line[1].split())
+# for line in open('./Homework/test.csv'):
+#     line = line.split(',')
+#     if not(line[0].isdigit()):
+#         continue
+#     label.append(line[0])   # id, in test set
+#     raw_image.append(line[1].split())
 
-testX = np.array(raw_image).reshape(len(raw_image),48,48).astype(np.int)
-testX = testX/255
-print(trainX.shape, temp[0])
+# testX = np.array(raw_image).reshape(len(raw_image),48,48).astype(np.int)
+# testX = testX/255
+# print(testX.shape, temp[0])
 
 # -------------------- get_class_weights for imbalance dataset --------------------
 def get_class_weights(y):
@@ -127,25 +127,20 @@ print("")
 
 
 # ------------------------ model training --------------------------
+import h5py
+from keras.models import load_model, save_model
 from keras import optimizers
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 tempX = np.vstack((trainX, trainX_rotate, trainX_shear, trainX_zoom, trainX_bright, trainX_hflip))
 tempY_oneHot = np.vstack((trainY_oneHot, trainY_oneHot, trainY_oneHot, trainY_oneHot, trainY_oneHot, trainY_oneHot))
 print(tempX.shape, tempY_oneHot.shape)
 
-train_history = model.fit(x=tempX, y=tempY_oneHot, validation_split=0.2, class_weight=class_weights,
-                          epochs=100, batch_size=100, verbose=2)
+
+for i in range(10):
+    train_history = model.fit(x=tempX, y=tempY_oneHot, validation_split=0.2, class_weight=class_weights,
+                          epochs=1, batch_size=100, verbose=2)
+    model.save('model_{}.h5'.format(i))
 # PS. I do not implement any early-stopping criteria, hence I save the model every 10 epoch
-
-
-
-# ------------------------ model predicting --------------------------
-# model = load_model('models/dataAugAll_29_model.h5')   # load the best model during training
-testX = testX.reshape(testX.shape[0], 48, 48, 1).astype('float32')
-prediction_prob = model.predict(testX, batch_size=None, verbose=0, steps=None)
-prediction = np.argmax(prediction_prob, axis=1)
-print(prediction.shape, prediction_prob[:5], prediction[:5])
-np.savetxt("prediction.csv", prediction, delimiter=",")
 
 
 
