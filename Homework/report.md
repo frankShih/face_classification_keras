@@ -72,23 +72,30 @@
 `filter=3*3, CONV -> POOL ... Flatten -> FC-> Prediction`
 
 第一次建置的模型如下:
-8 8 16 16 32 32 128 7
+
+![image info](model_plot0.PNG) <br>
+
 accuracy 約0.55 但是有點 overfitting (train/valid acc 相差約5%)
 
 探究其原因，發現相較於資料量，可調整的參數量有點過多
 
 根據不具名的都市傳說 `建議參數量 <= 10 * training_data_size`
 
-嘗試 8 8 16 16 32 32 64 7
+於是便將 FC layer 參數量減半:
+
+![image info](model_plot1.PNG) <br>
+
 accuracy 約0.58 且 overfitting 有些許改善
 
 然而，這樣的結果並不理想，甚至可視為 underfitting
-於是 data augmentation 便派上用場了，將training set 擴增5倍
+於是 data augmentation 便派上用場了，將 training set 擴增5倍
 
-嘗試 8 8 16 16 32 32 64 7
-accuracy 沒有明顯改善，依舊underfitting -> go deeper
+在 model 不改變的條件下，accuracy 沒有明顯改善，依舊underfitting
+因此，只剩下一個選項:
 
-嘗試 16 16 32 32 64 64 64 7   並且將 epoch 提升到300~500
+![image info](inception.PNG) <br>
+
+嘗試將各層 filter 數量翻倍，並且將 epoch 提升至 300~500
 accuracy 拉升到 0.7 左右，並以此作為最終 model
 
 ### Model validation
@@ -101,13 +108,8 @@ accuracy 拉升到 0.7 左右，並以此作為最終 model
 此次 task 可能是為了簡化問題，才將其設定為 0/1 的 accuracy metric
 
 在confusion matrix 中也看得出來<br>
-[[305   1   49  49  103 10  95]<br>
- [13    31  3   5   13   1   5]<br>
- [ 63   2 237  32 162  66  76]<br>
- [ 30   0  18 941  32  23  62]<br>
- [ 83   0  67  35 405  10 138]<br>
- [ 25   0  40  29   9 351  21]<br>
- [ 41   0  17  70 109  17 506]]<br>
+
+![image info](confusion.PNG) <br>
 
  部分 class prediciton 出現混雜的狀況，而我們也可以針對這些資訊，對 model 做進一步的優化。
 
