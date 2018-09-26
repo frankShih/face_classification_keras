@@ -2,7 +2,7 @@ label=[]
 raw_image=[]
 
 # --------------------- format data ----------------------
-for line in open('./Homework/train.csv'):
+for line in open('./train.csv'):
     line = line.split(',')
     if not(line[0].isdigit()):
         continue
@@ -10,14 +10,15 @@ for line in open('./Homework/train.csv'):
     raw_image.append(line[1].split())
 
 import numpy as np
+from keras.utils import np_utils
 trainX = np.array(raw_image).reshape(len(raw_image),48,48).astype(np.int)
 trainX = trainX/255
-print(trainX.shape, temp[0])
+# print(trainX.shape, trainX[0])
 
 trainY = np.array(label).reshape(len(label),1).astype(np.int)
-print(trainY.shape)
+# print(trainY.shape)
 trainY_oneHot = np_utils.to_categorical(trainY)
-print(trainY_oneHot.shape)
+# print(trainY_oneHot.shape)
 
 # for line in open('./Homework/test.csv'):
 #     line = line.split(',')
@@ -42,7 +43,13 @@ print(class_weights)
 
 
 # ---------------------- image data augmentation --------------------------
+trainX_hflip = trainX[:, :, ::-1]  # horizontal, vertical for axis=1
+trainX_hflip = np.concatenate(trainX_hflip, axis=0).reshape(trainX.shape[0], 48, 48, 1).astype('float32')  
+print('hflip shape:{}, {}'.format(trainX_hflip.shape, trainX_hflip[0]))
+
 trainX = trainX.reshape(trainX.shape[0], 48, 48, 1).astype('float32')
+print('train_x shape:{}, {}'.format(trainX.shape, trainX[0]))
+
 
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
@@ -62,20 +69,27 @@ def data_augment(trainX, trainY, imageGenerator):
         trainY_aug.append(by)
 
     trainX_aug = np.concatenate(trainX_aug, axis=0).reshape(generate_amount, 48, 48)
-    print(trainX_aug.shape, trainX_aug[0])
+#    print(trainX_aug.shape, trainX_aug[0])
 
     return trainX_aug
 
 
 datagen = ImageDataGenerator(fill_mode='constant', rotation_range=20)
 trainX_rotate = data_augment(trainX, trainY, datagen)
+trainX_rotate = trainX_rotate.reshape(trainX_rotate.shape[0], 48, 48, 1).astype('float32') 
+print('rotate shape:{}, {}'.format(trainX_rotate.shape, trainX_rotate[0]))
 datagen = ImageDataGenerator(fill_mode='constant', shear_range=20)
 trainX_shear = data_augment(trainX, trainY, datagen)
+trainX_shear = trainX_shear.reshape(trainX_shear.shape[0], 48, 48, 1).astype('float32') 
+print('shear shape:{}, {}'.format(trainX_shear.shape, trainX_shear[0]))
 datagen = ImageDataGenerator(fill_mode='constant', zoom_range=0.2)
 trainX_zoom = data_augment(trainX, trainY, datagen)
+trainX_zoom = trainX_zoom.reshape(trainX_zoom.shape[0], 48, 48, 1).astype('float32') 
+print('zoom shape:{}, {}'.format(trainX_zoom.shape, trainX_zoom[0]))
 datagen = ImageDataGenerator(fill_mode='constant', brightness_range=[0.8, 1.2])
 trainX_bright = data_augment(trainX, trainY, datagen)
-trainX_hflip = trainX[:, :, ::-1]  # horizontal, vertical for axis=1
+trainX_bright = trainX_bright.reshape(trainX_bright.shape[0], 48, 48, 1).astype('float32') 
+print('bright shape:{}, {}'.format(trainX_bright.shape, trainX_bright[0]))
 
 
 # ---------------------- model building --------------------------
@@ -139,7 +153,7 @@ print(tempX.shape, tempY_oneHot.shape)
 for i in range(10):
     train_history = model.fit(x=tempX, y=tempY_oneHot, validation_split=0.2, class_weight=class_weights,
                           epochs=1, batch_size=100, verbose=2)
-    model.save('model_{}.h5'.format(i))
+    model.save('model_{}_temp.h5'.format(i))
 # PS. I do not implement any early-stopping criteria, hence I save the model every 10 epoch
 
 
