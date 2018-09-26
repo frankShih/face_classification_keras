@@ -88,7 +88,7 @@ trainX_zoom = trainX_zoom.reshape(trainX_zoom.shape[0], 48, 48, 1).astype('float
 print('zoom shape:{}, {}'.format(trainX_zoom.shape, trainX_zoom[0]))
 datagen = ImageDataGenerator(fill_mode='constant', brightness_range=[0.8, 1.2])
 trainX_bright = data_augment(trainX, trainY, datagen)
-trainX_bright = trainX_bright.reshape(trainX_bright.shape[0], 48, 48, 1).astype('float32') 
+trainX_bright = trainX_bright.reshape(trainX_bright.shape[0], 48, 48, 1).astype('float32')/255 
 print('bright shape:{}, {}'.format(trainX_bright.shape, trainX_bright[0]))
 
 
