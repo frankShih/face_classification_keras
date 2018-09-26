@@ -1,6 +1,10 @@
 import numpy as np
+import pandas as pd
 
-for line in open('./Homework/test.csv'):
+label = []
+raw_image=[]
+
+for line in open('./test.csv'):
     line = line.split(',')
     if not(line[0].isdigit()):
         continue
@@ -9,15 +13,19 @@ for line in open('./Homework/test.csv'):
 
 testX = np.array(raw_image).reshape(len(raw_image),48,48).astype(np.int)
 testX = testX/255
-print(testX.shape, temp[0])
+print(testX.shape, testX[0])
 
 
+import h5py
+from keras.models import load_model, save_model
 
 # ------------------------ model predicting --------------------------
-model = load_model('model_9.h5')   # load the best model during training
+model = load_model('../models/dataAugAll_9_model_1.h5')   # load the best model during training
 testX = testX.reshape(testX.shape[0], 48, 48, 1).astype('float32')
 prediction_prob = model.predict(testX, batch_size=None, verbose=0, steps=None)
 prediction = np.argmax(prediction_prob, axis=1)
-print(prediction.shape, prediction_prob[:5], prediction[:5])
-np.savetxt("prediction.csv", prediction, delimiter=",")
+print(prediction.shape, prediction_prob[:5], prediction[:5], label[:5])
+result = pd.DataFrame(np.vstack((np.array(label), prediction)).T, columns=['id', 'label'])
+# np.savetxt("prediction.csv", prediction, delimiter=",", header='id')
 
+result.to_csv("prediction.csv", sep=',', index=False)

@@ -20,17 +20,6 @@ trainY = np.array(label).reshape(len(label),1).astype(np.int)
 trainY_oneHot = np_utils.to_categorical(trainY)
 # print(trainY_oneHot.shape)
 
-# for line in open('./Homework/test.csv'):
-#     line = line.split(',')
-#     if not(line[0].isdigit()):
-#         continue
-#     label.append(line[0])   # id, in test set
-#     raw_image.append(line[1].split())
-
-# testX = np.array(raw_image).reshape(len(raw_image),48,48).astype(np.int)
-# testX = testX/255
-# print(testX.shape, temp[0])
-
 # -------------------- get_class_weights for imbalance dataset --------------------
 def get_class_weights(y):
     uni_val, counter = np.unique(y, return_counts=True)
@@ -44,7 +33,7 @@ print(class_weights)
 
 # ---------------------- image data augmentation --------------------------
 trainX_hflip = trainX[:, :, ::-1]  # horizontal, vertical for axis=1
-trainX_hflip = np.concatenate(trainX_hflip, axis=0).reshape(trainX.shape[0], 48, 48, 1).astype('float32')  
+trainX_hflip = np.concatenate(trainX_hflip, axis=0).reshape(trainX.shape[0], 48, 48, 1).astype('float32')
 print('hflip shape:{}, {}'.format(trainX_hflip.shape, trainX_hflip[0]))
 
 trainX = trainX.reshape(trainX.shape[0], 48, 48, 1).astype('float32')
@@ -76,19 +65,19 @@ def data_augment(trainX, trainY, imageGenerator):
 
 datagen = ImageDataGenerator(fill_mode='constant', rotation_range=20)
 trainX_rotate = data_augment(trainX, trainY, datagen)
-trainX_rotate = trainX_rotate.reshape(trainX_rotate.shape[0], 48, 48, 1).astype('float32') 
+trainX_rotate = trainX_rotate.reshape(trainX_rotate.shape[0], 48, 48, 1).astype('float32')
 print('rotate shape:{}, {}'.format(trainX_rotate.shape, trainX_rotate[0]))
 datagen = ImageDataGenerator(fill_mode='constant', shear_range=20)
 trainX_shear = data_augment(trainX, trainY, datagen)
-trainX_shear = trainX_shear.reshape(trainX_shear.shape[0], 48, 48, 1).astype('float32') 
+trainX_shear = trainX_shear.reshape(trainX_shear.shape[0], 48, 48, 1).astype('float32')
 print('shear shape:{}, {}'.format(trainX_shear.shape, trainX_shear[0]))
 datagen = ImageDataGenerator(fill_mode='constant', zoom_range=0.2)
 trainX_zoom = data_augment(trainX, trainY, datagen)
-trainX_zoom = trainX_zoom.reshape(trainX_zoom.shape[0], 48, 48, 1).astype('float32') 
+trainX_zoom = trainX_zoom.reshape(trainX_zoom.shape[0], 48, 48, 1).astype('float32')
 print('zoom shape:{}, {}'.format(trainX_zoom.shape, trainX_zoom[0]))
 datagen = ImageDataGenerator(fill_mode='constant', brightness_range=[0.8, 1.2])
 trainX_bright = data_augment(trainX, trainY, datagen)
-trainX_bright = trainX_bright.reshape(trainX_bright.shape[0], 48, 48, 1).astype('float32')/255 
+trainX_bright = trainX_bright.reshape(trainX_bright.shape[0], 48, 48, 1).astype('float32')/255
 print('bright shape:{}, {}'.format(trainX_bright.shape, trainX_bright[0]))
 
 

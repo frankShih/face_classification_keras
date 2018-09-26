@@ -6,7 +6,7 @@
 給予一張圖片，將其歸類至7種表情中的其中一種。可以將其視為一個 multi-class classification 的問題。
 原題目希望透過表情，可以大略地知道該受測對象的情緒狀態，並可對其做出進一步的回應。<br>
 
-![image info](front_page.PNG) <br>
+![image info](images/front_page.PNG) <br>
 *Kaggle Facial Expression Recognition Challenge*
 
 例如，商業，客戶在接觸到特定產品後的表情變化，可做為產品未來改進方向、目標客群選擇的參考依據。
@@ -19,10 +19,10 @@
 若將圖片視覺化呈現出來，可以發現資料前處理的工作已被大量簡略，但圖片的品質並非都十分理想。
 像是臉部的浮水印、圖片過度曝光/亮度不足導致臉部輪廓不明顯、甚至是缺圖(sample_59)等狀況。
 
-![image info](sample_115.PNG) <br>
+![image info](images/sample_115.PNG) <br>
 *image with watermark*
 
-![image info](sample_59.PNG) <br>
+![image info](images/sample_59.PNG) <br>
 *image unrelated*
 
 
@@ -31,7 +31,7 @@
 另一個較特別的部分，這是個 imbalance dataset，各個 class 的比例並不平均。
 `"disgust"` 的比例佔全體約 1%，幾乎是可以被忽略的量。
 
-![image info](classes_ratio.PNG) <br>
+![image info](images/classes_ratio.PNG) <br>
 *the ratio of each class in training set*
 
 在實務上，若該 class 並不是特別重要，或是這個 task 預測錯誤的 penalty 不大
@@ -57,10 +57,10 @@
 * rotation_range
 * horizontal_flip
 
-![image info](image_aug1.PNG) <br>
+![image info](images/image_aug1.PNG) <br>
 *data augmentation with only one feature*  <br><br>
 
-![image info](image_aug2.PNG) <br>
+![image info](images/image_aug2.PNG) <br>
 *data augmentation with multiple features*
 
 一個簡單的準則: `"more training data" is preferable than "more complex model"`<br>
@@ -73,7 +73,7 @@
 
 第一次建置的模型如下:
 
-![image info](model_plot0.PNG) <br>
+![image info](images/model_plot0.PNG) <br>
 
 accuracy 約0.55 但是有點 overfitting (train/valid acc 相差約5%)
 
@@ -83,7 +83,7 @@ accuracy 約0.55 但是有點 overfitting (train/valid acc 相差約5%)
 
 於是便將 FC layer 參數量減半:
 
-![image info](model_plot1.PNG) <br>
+![image info](images/model_plot1.PNG) <br>
 
 accuracy 約0.58 且 overfitting 有些許改善
 
@@ -93,7 +93,7 @@ accuracy 約0.58 且 overfitting 有些許改善
 在 model 不改變的條件下，accuracy 沒有明顯改善，依舊underfitting
 因此，只剩下一個選項:
 
-![image info](inception.PNG) <br>
+![image info](images/inception.PNG) <br>
 
 嘗試將各層 filter 數量翻倍，並且將 epoch 提升至 300~500
 accuracy 拉升到 0.7 左右，並以此作為最終 model
@@ -109,7 +109,7 @@ accuracy 拉升到 0.7 左右，並以此作為最終 model
 
 在confusion matrix 中也看得出來<br>
 
-![image info](confusion.PNG) <br>
+![image info](images/confusion.PNG) <br>
 
  部分 class prediciton 出現混雜的狀況，而我們也可以針對這些資訊，對 model 做進一步的優化。
 
