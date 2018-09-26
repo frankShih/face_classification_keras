@@ -20,7 +20,7 @@ import h5py
 from keras.models import load_model, save_model
 
 # ------------------------ model predicting --------------------------
-model = load_model('../models/dataAugAll_9_model_1.h5')   # load the best model during training
+model = load_model('../models/dataAugAll_1_model_2.h5')   # load the best model during training
 testX = testX.reshape(testX.shape[0], 48, 48, 1).astype('float32')
 prediction_prob = model.predict(testX, batch_size=None, verbose=0, steps=None)
 prediction = np.argmax(prediction_prob, axis=1)
@@ -28,4 +28,4 @@ print(prediction.shape, prediction_prob[:5], prediction[:5], label[:5])
 result = pd.DataFrame(np.vstack((np.array(label), prediction)).T, columns=['id', 'label'])
 # np.savetxt("prediction.csv", prediction, delimiter=",", header='id')
 
-result.to_csv("prediction.csv", sep=',', index=False)
+result.to_csv("prediction1.csv", sep=',', index=False)
