@@ -2,11 +2,11 @@ import numpy as np
 from keras.utils import np_utils
 
 # ---------------------------loading data-----------------------------
-trainX = np.load("trainX_split1.npy")
+trainX = np.load("datasets/trainX_split1.npy")
 trainX = trainX/255
 trainX = trainX.reshape(trainX.shape[0], 48, 48, 1).astype('float32')
 
-trainY = np.load("trainY_split1.npy")
+trainY = np.load("datasets/trainY_split1.npy")
 trainY_oneHot = np_utils.to_categorical(trainY)
 
 def get_class_weights(y):
@@ -17,7 +17,7 @@ def get_class_weights(y):
 
 class_weights=get_class_weights(trainY)
 
-trainX_aug=np.load("datasets/trainX_split_zoom5.npy")
+trainX_aug=np.load("datasets/trainX_split_zoom1.npy")
 trainX_aug = trainX_aug.reshape(trainX_aug.shape[0], 48, 48, 1).astype('float32')
 
 
@@ -98,7 +98,7 @@ tempX = np.vstack((trainX, trainX_aug))
 tempY_oneHot = np.vstack((trainY_oneHot, trainY_oneHot))
 # print(tempX.shape, tempY_oneHot.shape)
 train_history = model.fit(x=tempX, y=tempY_oneHot, validation_split=0.2, class_weight=class_weights,
-                          epochs=50, batch_size=100, verbose=2)
+                          epochs=10, batch_size=100, verbose=2)
 
 
 

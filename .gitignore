@@ -1,3 +1,5 @@
 .ipynb_checkpoints
 *.npy
 .vscode
+venv
+.idea/
