@@ -3,3 +3,5 @@
 .vscode
 venv
 .idea/
+*.zip
+*.7z
